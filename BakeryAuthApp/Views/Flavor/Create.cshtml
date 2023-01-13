@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model AddFlavorViewModel
+
+@if(!ViewData.ModelState.IsValid) 
+{
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
+}
+
+@using (Html.BeginForm("/flavor/create"))
+{
+  @Html.LabelFor(m => m.name)
+  @Html.TextBoxFor(m => m.name)
+
+  <button type="submit">Add Flavor</button>
+}

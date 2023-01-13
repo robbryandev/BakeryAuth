@@ -3,16 +3,18 @@ using System;
 using BakeryAuth.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BakeryAuth.Migrations
+namespace BakeryAuthApp.Migrations
 {
     [DbContext(typeof(BakeryAuthContext))]
-    partial class BakeryAuthContextModelSnapshot : ModelSnapshot
+    [Migration("20230113195139_fix_models")]
+    partial class fix_models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,6 +92,9 @@ namespace BakeryAuth.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("user_id")
                         .HasColumnType("longtext");
 
                     b.HasKey("flavor_id");

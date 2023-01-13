@@ -13,7 +13,7 @@
   }
   else 
   {
-    <h3 class="my-3">Please @Html.ActionLink("log in", "LogIn", "Account") to manage treats and flavors.</h3>
+    <h3 class="my-3">Please @Html.ActionLink("log in", "LogIn", "Account") to manage your treats and flavors.</h3>
   }
 <a href="/treat">Treats</a>
 <hr class="w-50">
@@ -36,5 +36,25 @@
     <br>
   }
 </div>
-  <p>@Html.ActionLink("Flavors", "Index", "Flavor")</p>
+<a href="/flavor">Flavors</a>
+<hr class="w-50">
+<br>
+<div class="w-25 text-center m-auto">
+  @if (ViewBag.flavors.Count == 0)
+  {
+    <p>Sorry there aren't any flavors yet</p>
+  }
+
+  @foreach (Flavor flavor in ViewBag.flavors)
+  {
+    <div class="card">
+      <div class="card-body">
+      <h1 class="card-title">
+        <a href="/flavor/details/@flavor.flavor_id">@flavor.name</a>
+      </h1>
+      </div>
+    </div>
+    <br>
+  }
+</div>
 </div>

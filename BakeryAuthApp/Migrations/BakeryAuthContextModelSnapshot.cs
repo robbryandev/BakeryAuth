@@ -3,18 +3,16 @@ using System;
 using BakeryAuth.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BakeryAuth.Migrations
+namespace BakeryAuthApp.Migrations
 {
     [DbContext(typeof(BakeryAuthContext))]
-    [Migration("20230113174639_string_user")]
-    partial class string_user
+    partial class BakeryAuthContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,6 +92,9 @@ namespace BakeryAuth.Migrations
                     b.Property<string>("name")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("user_id")
+                        .HasColumnType("longtext");
+
                     b.HasKey("flavor_id");
 
                     b.ToTable("flavors");
@@ -104,6 +105,9 @@ namespace BakeryAuth.Migrations
                     b.Property<int>("treat_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("description")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("name")
                         .HasColumnType("longtext");

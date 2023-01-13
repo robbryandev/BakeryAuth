@@ -14,6 +14,7 @@ namespace BakeryAuth.Controllers
     [HttpGet("/")]
     public ActionResult Index() {
       ViewBag.treats = _db.treats.ToList();
+      ViewBag.flavors = _db.flavors.ToList();
       return View();
     }
   }
