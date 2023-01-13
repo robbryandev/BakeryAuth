@@ -14,13 +14,22 @@
   <br>
   <h1>Flavors</h1>
   <hr class="my-4">
+
+
   @if (ViewBag.flavors.Count == 0)
   {
     <h3>Sorry @Model.name doesn't have any flavors yet</h3>
   } else {
     @foreach (Flavor flavor in ViewBag.flavors)
     {
-      <a href="/flavor/details/@flavor.flavor_id">@flavor.name</a>
+      <div class="card w-25 m-auto">
+        <div class="card-body">
+          <a class="card-title" href="/flavor/details/@flavor.flavor_id">@flavor.name</a>
+          <form class="my-3" action="/treat/delete/join/@Model.treat_id/@flavor.flavor_id" method="post">
+            <button type="submit" class="btn btn-danger">X</button>
+          </form>
+        </div>
+      </div>
       <br>
     }
   }

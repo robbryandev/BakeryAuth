@@ -80,9 +80,28 @@ namespace BakeryAuth.Controllers
     [HttpPost("/flavor/delete/{id}")]
     public ActionResult DeleteConfirm(int id) {
       Flavor thisFlavor = _db.flavors.FirstOrDefault(fl => fl.flavor_id == id);
+      List<TreatFlavor> joins = _db.treatFlavors.Where(join => join.flavor_id == thisFlavor.flavor_id).ToList();
+      foreach (TreatFlavor join in joins)
+      {
+        _db.treatFlavors.Remove(join);
+      }
       _db.flavors.Remove(thisFlavor);
       _db.SaveChanges();
       return Redirect("/flavor");
+    }
+
+    [HttpPost("/flavor/delete/join/{id}/{treat_id}")]
+    public ActionResult DeleteTreat(int id, int treat_id) {
+      List<TreatFlavor> joins = _db.treatFlavors
+        .Where(join => join.flavor_id == id &&
+        join.treat_id == treat_id)
+        .ToList();
+      foreach (TreatFlavor join in joins)
+      {
+        _db.treatFlavors.Remove(join);
+      }
+      _db.SaveChanges();
+      return Redirect($"/flavor/details/{id}");
     }
   }
 }
