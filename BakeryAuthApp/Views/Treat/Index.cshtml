@@ -13,7 +13,7 @@
   <p>@Html.ActionLink("Add Treat", "Create", "Treat")</p>
   @foreach (Treat treat in ViewBag.my_treats)
   {
-    <p>@treat.name</p>
+    <a href="/treat/update/@treat.treat_id">@treat.name</a>
   }
   <br>
 }

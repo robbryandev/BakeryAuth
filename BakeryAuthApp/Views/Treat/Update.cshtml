@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Treat
+
+@if(!ViewData.ModelState.IsValid) 
+{
+  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
+}
+
+@using (Html.BeginForm("/treat/update"))
+{
+  @Html.HiddenFor(m => m.treat_id)
+  @Html.HiddenFor(m => m.user_id)
+  @Html.LabelFor(m => m.name)
+  @Html.TextBoxFor(m => m.name)
+
+  <button type="submit">Update Treat</button>
+}

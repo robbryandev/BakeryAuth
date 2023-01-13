@@ -50,5 +50,18 @@ namespace BakeryAuth.Controllers
       _db.SaveChanges();
       return Redirect("/treat");
     }
+
+    [HttpGet("/treat/update/{id}")]
+    public ActionResult Update(int id) {
+      Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      return View(thisTreat);
+    }
+
+    [HttpPost]
+    public ActionResult Update(Treat treat) {
+      _db.treats.Update(treat);
+      _db.SaveChanges();
+      return Redirect("/treat");
+    }
   }
 }
