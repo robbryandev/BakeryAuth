@@ -3,7 +3,9 @@
 }
 
 @model Treat
-
+<a href="/">Home</a>
+<br>
+<a href="/treat">All treats</a>
 @if(!ViewData.ModelState.IsValid) 
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
@@ -19,4 +21,21 @@
   @Html.TextBoxFor(m => m.description)
 
   <button type="submit">Update Treat</button>
+}
+
+<h3>Add a Flavor</h3>
+<br>
+@if (ViewBag.Flavors.Count > 0)
+{
+  <form action="/treat/update/@Model.treat_id/flavor" method="post">
+    <select name="flavor_id" id="flavor_id">
+      @foreach (Flavor flavor in ViewBag.flavors)
+      {
+        <option value="@flavor.flavor_id">@flavor.name</option>
+      }
+    </select>
+    <button type="submit" class="btn btn-info">Add Flavor</button>
+  </form>
+} else {
+  <h3>Sorry there aren't any flavors you can add to @Model.name</h3>
 }

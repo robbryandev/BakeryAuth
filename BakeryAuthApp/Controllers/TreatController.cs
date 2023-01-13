@@ -55,18 +55,55 @@ namespace BakeryAuth.Controllers
     [HttpGet("/treat/details/{id}")]
     public ActionResult Details(int id) {
       Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      List<TreatFlavor> joins = _db.treatFlavors
+        .Where(join => join.treat_id == thisTreat.treat_id)
+        .ToList();
+      List<Flavor> flavors = new List<Flavor>{};
+      foreach (Flavor flavor in _db.flavors.ToList())
+      {
+        bool inJoin = joins.Any(j => j.flavor_id == flavor.flavor_id);
+        if (inJoin == true)
+        {
+          flavors.Add(flavor);
+        }
+      }
+      ViewBag.flavors = flavors;
       return View(thisTreat);
     }
 
     [HttpGet("/treat/update/{id}")]
     public ActionResult Update(int id) {
       Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      List<TreatFlavor> joins = _db.treatFlavors
+        .Where(join => join.treat_id == thisTreat.treat_id)
+        .ToList();
+      List<Flavor> AllFlavors = _db.flavors.ToList();
+      List<Flavor> flavors = new List<Flavor>{};
+      foreach (Flavor flavor in AllFlavors)
+      {
+        bool inJoin = joins.Any(j => j.flavor_id == flavor.flavor_id);
+        if (inJoin == false)
+        {
+          flavors.Add(flavor);
+        }
+      }
+      ViewBag.flavors = flavors;
       return View(thisTreat);
     }
 
     [HttpPost]
     public ActionResult Update(Treat treat) {
       _db.treats.Update(treat);
+      _db.SaveChanges();
+      return Redirect("/treat");
+    }
+
+    [HttpPost("/treat/update/{id}/flavor")]
+    public ActionResult AddFlavor(int id, int flavor_id) {
+      TreatFlavor newJoin = new TreatFlavor();
+      newJoin.treat_id = id;
+      newJoin.flavor_id = flavor_id;
+      _db.treatFlavors.Add(newJoin);
       _db.SaveChanges();
       return Redirect("/treat");
     }

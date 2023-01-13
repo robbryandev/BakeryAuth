@@ -10,5 +10,18 @@
   <h1>@Model.name</h1>
   <hr class="my-4">
 
-  @Model.description
+  <h3>@Model.description</h3>
+  <br>
+  <h1>Flavors</h1>
+  <hr class="my-4">
+  @if (ViewBag.flavors.Count == 0)
+  {
+    <h3>Sorry @Model.name doesn't have any flavors yet</h3>
+  } else {
+    @foreach (Flavor flavor in ViewBag.flavors)
+    {
+      <a href="/flavor/details/@flavor.flavor_id">@flavor.name</a>
+      <br>
+    }
+  }
 </div>
