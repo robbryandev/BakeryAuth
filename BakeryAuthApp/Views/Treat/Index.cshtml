@@ -2,9 +2,28 @@
   Layout = "_Layout";
 }
 
-<h1>@Model.UserName's Treats</h1>
+<a href="/">Home</a>
+@if (!User.Identity.IsAuthenticated)
+{
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to manage your Treats.</p>
+} else {
+  <h1>@Model.UserName's Treats</h1>
+  <hr>
+  <br>
+  <p>@Html.ActionLink("Add Treat", "Create", "Treat")</p>
+  @foreach (Treat treat in ViewBag.my_treats)
+  {
+    <p>@treat.name</p>
+  }
+  <br>
+}
+<h1>All Treats</h1>
 <hr>
 <br>
+@if (ViewBag.treats.Count == 0)
+{
+  <p>Sorry there aren't any treats yet</p>
+}
 @foreach (Treat treat in ViewBag.treats)
 {
   <p>@treat.name</p>

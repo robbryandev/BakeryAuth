@@ -14,9 +14,11 @@ namespace BakeryAuth.Controllers
       _db = db;
     }
     
+    [AllowAnonymous]
     [HttpGet("/flavor")]
     public ActionResult Index() {
-      return View();
+      List<Flavor> flavors = _db.flavors.ToList();
+      return View(flavors);
     }
   }
 }

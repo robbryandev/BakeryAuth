@@ -1,0 +1,12 @@
+@{
+  Layout = "_Layout";
+}
+
+<a href="/">Home</a>
+<h1>Flavors</h1>
+<hr>
+<br>
+@foreach (Flavor flavor in Model)
+{
+  <p>@flavor.name</p>
+}
