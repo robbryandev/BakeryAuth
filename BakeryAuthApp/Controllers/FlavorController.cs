@@ -55,6 +55,19 @@ namespace BakeryAuth.Controllers
     [HttpGet("/flavor/details/{id}")]
     public ActionResult Details(int id) {
       Flavor thisFlavor = _db.flavors.FirstOrDefault(fl => fl.flavor_id == id);
+      List<TreatFlavor> joins = _db.treatFlavors
+        .Where(join => join.flavor_id == id)
+        .ToList();
+      List<Treat> treats = new List<Treat>{};
+      foreach (Treat treat in _db.treats.ToList())
+      {
+        bool inJoin = joins.Any(join => join.treat_id == treat.treat_id);
+        if (inJoin == true)
+        {
+          treats.Add(treat);
+        }
+      }
+      ViewBag.treats = treats;
       return View(thisFlavor);
     }
 
