@@ -2,9 +2,12 @@
   Layout = "_Layout";
 }
 
+
 @if (User.Identity.IsAuthenticated)
 {
-  <p>@Html.ActionLink("Log out", "Index", "Account")</p>
+  <form action="/account/logoff" method="post">
+    <button type="submit">Log Out</button>
+  </form>
 }
 else 
 {

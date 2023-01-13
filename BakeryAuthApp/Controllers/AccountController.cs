@@ -42,6 +42,11 @@ namespace BakeryAuth.Controllers
         IdentityResult result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
+          Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+          if (loginResult.Succeeded)
+          {
+            return Redirect("/");
+          }
           return RedirectToAction("Index");
         }
         else
@@ -72,7 +77,7 @@ namespace BakeryAuth.Controllers
         Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-          return RedirectToAction("Index");
+          return Redirect("/");
         }
         else
         {
@@ -86,7 +91,7 @@ namespace BakeryAuth.Controllers
     public async Task<ActionResult> LogOff()
     {
       await _signInManager.SignOutAsync();
-      return RedirectToAction("Index");
+      return Redirect("/");
     }
   }
 }
