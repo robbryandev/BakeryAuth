@@ -83,6 +83,54 @@ namespace BakeryAuth.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("BakeryAuth.Models.Flavor", b =>
+                {
+                    b.Property<int>("flavor_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("flavor_id");
+
+                    b.ToTable("flavors");
+                });
+
+            modelBuilder.Entity("BakeryAuth.Models.Treat", b =>
+                {
+                    b.Property<int>("treat_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("treat_id");
+
+                    b.ToTable("treats");
+                });
+
+            modelBuilder.Entity("BakeryAuth.Models.TreatFlavor", b =>
+                {
+                    b.Property<int>("treatflavor_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("flavor_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("treat_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("treatflavor_id");
+
+                    b.ToTable("treatFlavors");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

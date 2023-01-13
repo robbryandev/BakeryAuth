@@ -2,4 +2,12 @@
   Layout = "_Layout";
 }
 
-<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Log out", "Index", "Account")</p>
+  <p>@Html.ActionLink("Treats", "Index", "Treat")</p>
+}
+else 
+{
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your Recipes and Tags.</p>
+}
