@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Treat
+<div class="text-center">
+  <a href="/">Home</a>
+  <br>
+  <a href="/treat">All treats</a>
+  <h1>@Model.name</h1>
+  <hr class="my-4">
+
+  @Model.description
+</div>

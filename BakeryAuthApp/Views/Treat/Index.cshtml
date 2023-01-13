@@ -1,19 +1,26 @@
 @{
   Layout = "_Layout";
 }
-
 <a href="/">Home</a>
 @if (!User.Identity.IsAuthenticated)
 {
-  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to manage your Treats.</p>
+  <h3>Please @Html.ActionLink("log in", "LogIn", "Account") to manage your Treats.</h3>
 } else {
   <h1>@Model.UserName's Treats</h1>
   <hr>
-  <br>
-  <p>@Html.ActionLink("Add Treat", "Create", "Treat")</p>
+  <a href="/treate/create" class="btn btn-primary mb-3">Add a treat</a>
   @foreach (Treat treat in ViewBag.my_treats)
   {
-    <a href="/treat/update/@treat.treat_id">@treat.name</a>
+  <div class="card w-25 text-center">
+    <div class="card-body">
+      <h1 class="card-title">
+        <a href="/treat/details/@treat.treat_id">@treat.name</a>
+      </h1>
+      <a href="/treat/delete/@treat.treat_id" class="btn btn-danger">X</a>
+      <a href="/treat/update/@treat.treat_id" class="btn btn-info ml-2">Edit</a>
+    </div>
+  </div>
+  <br>
   }
   <br>
 }
@@ -26,5 +33,12 @@
 }
 @foreach (Treat treat in ViewBag.treats)
 {
-  <p>@treat.name</p>
+  <div class="card w-25">
+    <div class="card-body">
+      <h1 class="card-title">
+        <a href="/treat/details/@treat.treat_id">@treat.name</a>
+      </h1>
+    </div>
+  </div>
+  <br>
 }

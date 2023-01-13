@@ -7,5 +7,7 @@ namespace BakeryAuth.ViewModels
     [Required]
     [Display(Name = "Name")]
     public string name { get; set; }
+    [Display(Name = "Description")]
+    public string description { get; set; }
   }
 }

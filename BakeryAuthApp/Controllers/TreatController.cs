@@ -51,6 +51,13 @@ namespace BakeryAuth.Controllers
       return Redirect("/treat");
     }
 
+    [AllowAnonymous]
+    [HttpGet("/treat/details/{id}")]
+    public ActionResult Details(int id) {
+      Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      return View(thisTreat);
+    }
+
     [HttpGet("/treat/update/{id}")]
     public ActionResult Update(int id) {
       Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
@@ -60,6 +67,20 @@ namespace BakeryAuth.Controllers
     [HttpPost]
     public ActionResult Update(Treat treat) {
       _db.treats.Update(treat);
+      _db.SaveChanges();
+      return Redirect("/treat");
+    }
+
+    [HttpGet("/treat/delete/{id}")]
+    public ActionResult Delete(int id) {
+      Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      return View(thisTreat);
+    }
+
+    [HttpPost("/treat/delete/{id}")]
+    public ActionResult DeleteConfirm(int id) {
+      Treat thisTreat = _db.treats.FirstOrDefault(tr => tr.treat_id == id);
+      _db.treats.Remove(thisTreat);
       _db.SaveChanges();
       return Redirect("/treat");
     }

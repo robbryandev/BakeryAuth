@@ -13,6 +13,7 @@ namespace BakeryAuth.Controllers
     
     [HttpGet("/")]
     public ActionResult Index() {
+      ViewBag.treats = _db.treats.ToList();
       return View();
     }
   }
