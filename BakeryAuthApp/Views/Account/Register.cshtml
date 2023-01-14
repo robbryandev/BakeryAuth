@@ -6,26 +6,26 @@
 
 @model RegisterViewModel
 
-<h2>Register a new user</h2>
-<hr />
+<div class="text-center w-25 m-auto">
+  <h2>Register a new user</h2>
+  <hr />
 
-@if(!ViewData.ModelState.IsValid) 
-{
-  @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
-}
+  @if(!ViewData.ModelState.IsValid) 
+  {
+    @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
+  }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-  @Html.LabelFor(user => user.Email)
-  @Html.TextBoxFor(user=> user.Email)
+  @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+  {
+    <label for="Email">Email</label>
+    <input class="form-control" type="text" name="Email" id="Email" required>
+    <br>
+    <label for="Password">Password</label>
+    <input class="form-control" type="password" name="Password" id="Password" required>
+    <label for="ConfirmPassword">Confirm Password</label>
+    <input class="form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" required>
+    <button type="submit" class="btn btn-primary my-4">Register</button>
+  }
 
-  @Html.LabelFor(user=> user.Password)
-  @Html.EditorFor(user=> user.Password)
-
-  @Html.LabelFor(user=> user.ConfirmPassword)
-  @Html.EditorFor(user=> user.ConfirmPassword)
-
-  <input type="submit" value="Register" />
-}
-
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+  <p>@Html.ActionLink("Home", "Index", "Home")</p>
+</div>
