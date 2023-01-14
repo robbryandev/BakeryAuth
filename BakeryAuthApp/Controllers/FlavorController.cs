@@ -74,12 +74,36 @@ namespace BakeryAuth.Controllers
     [HttpGet("/flavor/update/{id}")]
     public ActionResult Update(int id) {
       Flavor thisFlavor = _db.flavors.FirstOrDefault(fl => fl.flavor_id == id);
+      List<TreatFlavor> joins = _db.treatFlavors
+        .Where(join => join.flavor_id == thisFlavor.flavor_id)
+        .ToList();
+      List<Treat> AllTreats = _db.treats.ToList();
+      List<Treat> treats = new List<Treat>{};
+      foreach (Treat treat in AllTreats)
+      {
+        bool inJoin = joins.Any(j => j.treat_id == treat.treat_id);
+        if (inJoin == false)
+        {
+          treats.Add(treat);
+        }
+      }
+      ViewBag.treats = treats;
       return View(thisFlavor);
     }
 
     [HttpPost]
     public ActionResult Update(Flavor flavor) {
       _db.flavors.Update(flavor);
+      _db.SaveChanges();
+      return Redirect("/flavor");
+    }
+
+    [HttpPost("/flavor/update/{id}/treat")]
+    public ActionResult AddFlavor(int id, int treat_id) {
+      TreatFlavor newJoin = new TreatFlavor();
+      newJoin.flavor_id = id;
+      newJoin.treat_id = treat_id;
+      _db.treatFlavors.Add(newJoin);
       _db.SaveChanges();
       return Redirect("/flavor");
     }

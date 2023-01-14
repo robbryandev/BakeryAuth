@@ -8,13 +8,16 @@
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
 }
-
-@using (Html.BeginForm("/treat/create"))
-{
-  @Html.LabelFor(m => m.name)
-  @Html.TextBoxFor(m => m.name)
-  @Html.LabelFor(m => m.description)
-  @Html.TextBoxFor(m => m.description)
-
-  <button type="submit">Add Treat</button>
-}
+<div class="text-center w-25 m-auto">
+  @using (Html.BeginForm("/treat/create"))
+  {
+    <label for="name">Name</label>
+    <input class="form-control" type="text" name="name" id="name" required>
+    <br>
+    <label for="description">Description</label>
+    <input class="form-control" type="text" name="description" id="description" required>
+    <br>
+    <button class="btn btn-primary" type="submit">Add Treat</button>
+    <a class="btn btn-danger" href="/treat">Cancel</a>
+  }
+</div>
